@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.contract.ItemUpdateStrategy;
+import com.gildedrose.factory.ItemUpdateFactory;
+
 class GildedRose {
     Item[] items;
 
@@ -9,6 +12,13 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+            ItemUpdateStrategy strategy = ItemUpdateFactory.createItemUpdateStrategy(item);
+
+            if (strategy != null) {
+                strategy.update(item);
+                continue;
+            }
+
             if (!item.name.equals("Aged Brie")
                     && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.quality > 0) {
