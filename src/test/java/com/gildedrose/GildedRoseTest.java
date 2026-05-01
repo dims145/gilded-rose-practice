@@ -71,4 +71,24 @@ class GildedRoseTest {
         assertEquals(-40, app.items[0].sellIn);
         assertEquals(0, app.items[0].quality);
     }
+
+    @Test
+    void givenItemSulfuras_when50DaysPassed_shouldHaveCorrectQuality() {
+        Item[] items = new Item[] {new Item("Sulfuras, Hand of Ragnaros", 10, 80)};
+
+        GildedRose app = new GildedRose(items);
+        assertEquals("Sulfuras, Hand of Ragnaros", app.items[0].name);
+
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+        assertEquals(10, app.items[0].sellIn);
+        assertEquals(80, app.items[0].quality);
+
+        for (int i = 0; i < 40; i++) {
+            app.updateQuality();
+        }
+        assertEquals(10, app.items[0].sellIn);
+        assertEquals(80, app.items[0].quality);
+    }
 }

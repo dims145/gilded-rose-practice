@@ -12,38 +12,22 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-//            UpdateItemStrategy strategy = UpdateItemFactory.createUpdateItemStrategy(item);
+            UpdateItemStrategy strategy = UpdateItemFactory.createUpdateItemStrategy(item);
 
-//            strategy.updateStartDay(items[i]);
+            strategy.updateStartDay(item);
             if (!item.name.equals("Aged Brie")
-                && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.quality > 0) {
                     if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
                         item.quality = item.quality - 1;
                     }
                 }
-            } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-                    }
-                }
             }
 
-//            strategy.updateEndDay(items[i]);
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            strategy.updateEndDay(item);
+            if (!item.name.equals("Sulfuras, Hand of Ragnaros")
+                    && !item.name.equals("Aged Brie") // temp
+                    && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 item.sellIn = item.sellIn - 1;
             }
 
@@ -57,10 +41,6 @@ class GildedRose {
                         }
                     } else {
                         item.quality = 0;
-                    }
-                } else {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
                     }
                 }
             }
