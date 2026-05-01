@@ -7,10 +7,68 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GildedRoseTest {
 
     @Test
-    void foo() {
-        Item[] items = new Item[] {new Item("foo", 0, 0)};
+    void givenItemAgedBrie_when50DaysPassed_shouldHaveCorrectQuality() {
+        Item[] items = new Item[] {new Item("Aged Brie", 10, 10)};
+
         GildedRose app = new GildedRose(items);
+        assertEquals("Aged Brie", app.items[0].name);
+
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+        assertEquals(0, app.items[0].sellIn);
+        assertEquals(20, app.items[0].quality);
+
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-10, app.items[0].sellIn);
+        assertEquals(40, app.items[0].quality);
+
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-20, app.items[0].sellIn);
+        assertEquals(50, app.items[0].quality);
+
+        for (int i = 0; i < 20; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-40, app.items[0].sellIn);
+        assertEquals(50, app.items[0].quality);
+    }
+
+    @Test
+    void givenItemBackstagePasses_when50DaysPassed_shouldHaveCorrectQuality() {
+        Item[] items = new Item[] {new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10)};
+
+        GildedRose app = new GildedRose(items);
+        assertEquals("Backstage passes to a TAFKAL80ETC concert", app.items[0].name);
+
+        for (int i = 0; i < 5; i++) {
+            app.updateQuality();
+        }
+        assertEquals(5, app.items[0].sellIn);
+        assertEquals(20, app.items[0].quality);
+
+        for (int i = 0; i < 4; i++) {
+            app.updateQuality();
+        }
+        assertEquals(1, app.items[0].sellIn);
+        assertEquals(32, app.items[0].quality);
+
         app.updateQuality();
-        assertEquals("foo", app.items[0].name);
+        assertEquals(0, app.items[0].sellIn);
+        assertEquals(35, app.items[0].quality);
+
+        app.updateQuality();
+        assertEquals(-1, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+
+        for (int i = 0; i < 39; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-40, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
     }
 }

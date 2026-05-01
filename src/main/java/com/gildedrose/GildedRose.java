@@ -12,7 +12,7 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            UpdateItemStrategy strategy = UpdateItemFactory.createUpdateItemStrategy(item);
+//            UpdateItemStrategy strategy = UpdateItemFactory.createUpdateItemStrategy(item);
 
 //            strategy.updateStartDay(items[i]);
             if (!item.name.equals("Aged Brie")
