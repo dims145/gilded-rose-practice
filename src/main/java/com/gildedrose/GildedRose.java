@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.contract.UpdateQualityStrategy;
+import com.gildedrose.factory.UpdateQualityFactory;
+
 class GildedRose {
     Item[] items;
 
@@ -9,6 +12,13 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+            UpdateQualityStrategy strategy = UpdateQualityFactory.createStrategy(item);
+
+            if (strategy != null) {
+                strategy.calculateStrategy(item);
+                return;
+            }
+
             if (!item.name.equals("Aged Brie")
                 && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.quality > 0) {
@@ -42,7 +52,7 @@ class GildedRose {
 
             if (item.sellIn < 0) {
                 if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if (!item.name.startsWith("Backstage passes to a TAFKAL80ETC concert")) {
                         if (item.quality > 0) {
                             if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
                                 item.quality = item.quality - 1;
