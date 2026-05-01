@@ -44,51 +44,62 @@ class GildedRoseTest {
         Item[] items =
                 new Item[] {
                     new Item("Backstage passes to a TAFKAL80ETC concert", 15, 15),
-                    new Item("Backstage passes to a TAFKAL80ETC concert", 15, 45),
+                    new Item("Backstage passes to a TAFKAL80ETC concert", 15, 33),
+                    new Item("Backstage passes to a TAFKAL80ETC concert", 15, 44),
                 };
 
         GildedRose app = new GildedRose(items);
-        assertEquals("Backstage passes to a TAFKAL80ETC concert", app.items[0].name);
+        assertEquals("Backstage passes to a TAFKAL80ETC concert, 15, 15", app.items[0].toString());
 
         for (int i = 0; i < 5; i++) {
             app.updateQuality();
         }
         assertEquals(10, items[0].sellIn);
         assertEquals(10, items[1].sellIn);
+        assertEquals(10, items[2].sellIn);
         assertEquals(20, items[0].quality);
-        assertEquals(50, items[1].quality);
+        assertEquals(38, items[1].quality);
+        assertEquals(49, items[2].quality);
 
         for (int i = 0; i < 5; i++) {
             app.updateQuality();
         }
         assertEquals(5, items[0].sellIn);
         assertEquals(5, items[1].sellIn);
+        assertEquals(5, items[2].sellIn);
         assertEquals(30, items[0].quality);
-        assertEquals(50, items[1].quality);
+        assertEquals(48, items[1].quality);
+        assertEquals(50, items[2].quality);
 
         for (int i = 0; i < 5; i++) {
             app.updateQuality();
         }
         assertEquals(0, items[0].sellIn);
         assertEquals(0, items[1].sellIn);
+        assertEquals(0, items[2].sellIn);
         assertEquals(45, items[0].quality);
         assertEquals(50, items[1].quality);
+        assertEquals(50, items[2].quality);
 
         for (int i = 0; i < 5; i++) {
             app.updateQuality();
         }
         assertEquals(-5, items[0].sellIn);
         assertEquals(-5, items[1].sellIn);
+        assertEquals(-5, items[2].sellIn);
         assertEquals(0, items[0].quality);
         assertEquals(0, items[1].quality);
+        assertEquals(0, items[2].quality);
 
         for (int i = 0; i < 30; i++) {
             app.updateQuality();
         }
         assertEquals(-35, items[0].sellIn);
         assertEquals(-35, items[1].sellIn);
+        assertEquals(-35, items[2].sellIn);
         assertEquals(0, items[0].quality);
         assertEquals(0, items[1].quality);
+        assertEquals(0, items[2].quality);
     }
 
     @Test
