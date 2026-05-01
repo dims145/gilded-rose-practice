@@ -2,10 +2,7 @@ package com.gildedrose.factory;
 
 import com.gildedrose.Item;
 import com.gildedrose.contract.UpdateItemStrategy;
-import com.gildedrose.strategy.AgedBrieUpdateItemStrategy;
-import com.gildedrose.strategy.BackstagePassesUpdateItemStrategy;
-import com.gildedrose.strategy.CommonUpdateItemStrategy;
-import com.gildedrose.strategy.SulfurasUpdateItemStrategy;
+import com.gildedrose.strategy.*;
 
 public class UpdateItemFactory {
     public static UpdateItemStrategy createUpdateItemStrategy(Item item) {
@@ -15,6 +12,8 @@ public class UpdateItemFactory {
             return new BackstagePassesUpdateItemStrategy();
         } else if (item.name.startsWith("Sulfuras")) {
             return new SulfurasUpdateItemStrategy();
+        } else if (item.name.startsWith("Conjured")) {
+            return new ConjuredUpdateItemStrategy();
         } else {
             return new CommonUpdateItemStrategy();
         }
