@@ -180,4 +180,45 @@ class GildedRoseTest {
         assertEquals(-35, item.sellIn);
         assertEquals(0, item.quality);
     }
+
+    @Test
+    void givenConjuredItem_when50DaysPassed_shouldCalculateCorrectQuality() {
+        Item[] items = new Item[] {new Item("Conjured Mana Cake", 10, 45)};
+
+        GildedRose app = new GildedRose(items);
+        assertEquals("Conjured Mana Cake", app.items[0].name);
+        Item item = app.items[0];
+
+        for (int i = 0; i < 5; i++) {
+            app.updateQuality();
+        }
+        assertEquals(5, item.sellIn);
+        assertEquals(35, item.quality);
+
+        for (int i = 0; i < 5; i++) {
+            app.updateQuality();
+        }
+        assertEquals(0, item.sellIn);
+        assertEquals(25, item.quality);
+
+        for (int i = 0; i < 5; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-5, item.sellIn);
+        assertEquals(5, item.quality);
+
+        app.updateQuality();
+        assertEquals(-6, item.sellIn);
+        assertEquals(1, item.quality);
+
+        app.updateQuality();
+        assertEquals(-7, item.sellIn);
+        assertEquals(0, item.quality);
+
+        for (int i = 0; i < 23; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-30, item.sellIn);
+        assertEquals(0, item.quality);
+    }
 }
