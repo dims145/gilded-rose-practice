@@ -7,10 +7,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GildedRoseTest {
 
     @Test
-    void foo() {
-        Item[] items = new Item[] {new Item("foo", 0, 0)};
+    void givenAgedBrieItem_when50DaysPassed_shouldCalculateCorrectQuality() {
+        Item[] items = new Item[] {new Item("Aged Brie", 15, 15)};
+
         GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertEquals("foo", app.items[0].name);
+        assertEquals("Aged Brie", app.items[0].name);
+        Item item = app.items[0];
+
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+        assertEquals(5, item.sellIn);
+        assertEquals(25, item.quality);
+
+        for (int i = 0; i < 5; i++) {
+            app.updateQuality();
+        }
+        assertEquals(0, item.sellIn);
+        assertEquals(30, item.quality);
+
+        for (int i = 0; i < 5; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-5, item.sellIn);
+        assertEquals(40, item.quality);
+
+        for (int i = 0; i < 30; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-35, item.sellIn);
+        assertEquals(50, item.quality);
     }
 }
