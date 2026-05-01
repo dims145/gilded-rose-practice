@@ -190,4 +190,51 @@ class GildedRoseTest {
         assertEquals(0, app.items[0].quality);
         assertEquals(0, app.items[1].quality);
     }
+
+    @Test
+    void givenConjuredItem_when50DaysPassed_shouldCalculateQualityCorrectly() {
+        Item[] items =
+                new Item[] {
+                    new Item("Conjured Mana Cake", 15, 5), new Item("Conjured Mana Cake", 15, 35)
+                };
+
+        GildedRose app = new GildedRose(items);
+        assertEquals("Conjured Mana Cake", app.items[0].name);
+
+        for (int i = 0; i < 5; i++) {
+            app.updateQuality();
+        }
+        assertEquals(10, app.items[0].sellIn);
+        assertEquals(10, app.items[1].sellIn);
+        assertEquals(0, app.items[0].quality);
+        assertEquals(25, app.items[1].quality);
+
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+        assertEquals(0, app.items[0].sellIn);
+        assertEquals(0, app.items[1].sellIn);
+        assertEquals(0, app.items[0].quality);
+        assertEquals(5, app.items[1].quality);
+
+        app.updateQuality();
+        assertEquals(-1, app.items[0].sellIn);
+        assertEquals(-1, app.items[1].sellIn);
+        assertEquals(0, app.items[0].quality);
+        assertEquals(1, app.items[1].quality);
+
+        app.updateQuality();
+        assertEquals(-2, app.items[0].sellIn);
+        assertEquals(-2, app.items[1].sellIn);
+        assertEquals(0, app.items[0].quality);
+        assertEquals(0, app.items[1].quality);
+
+        for (int i = 0; i < 33; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-35, app.items[0].sellIn);
+        assertEquals(-35, app.items[1].sellIn);
+        assertEquals(0, app.items[0].quality);
+        assertEquals(0, app.items[1].quality);
+    }
 }

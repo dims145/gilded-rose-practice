@@ -2,10 +2,7 @@ package com.gildedrose.factory;
 
 import com.gildedrose.Item;
 import com.gildedrose.contract.ItemUpdateStrategy;
-import com.gildedrose.strategy.AgedBrieUpdateStrategy;
-import com.gildedrose.strategy.BackstagePassesUpdateStrategy;
-import com.gildedrose.strategy.CommonUpdateStrategy;
-import com.gildedrose.strategy.SulfurasUpdateStrategy;
+import com.gildedrose.strategy.*;
 
 public class ItemUpdateFactory {
     public static ItemUpdateStrategy createItemUpdateStrategy(Item item) {
@@ -15,6 +12,8 @@ public class ItemUpdateFactory {
             return new BackstagePassesUpdateStrategy();
         } else if ("Sulfuras, Hand of Ragnaros".equals(item.name)) {
             return new SulfurasUpdateStrategy();
+        } else if ("Conjured Mana Cake".equals(item.name)) {
+            return new ConjuredUpdateStrategy();
         } else {
             return new CommonUpdateStrategy();
         }
