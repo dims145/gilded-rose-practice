@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.contract.UpdateQualityStrategy;
+import com.gildedrose.factory.UpdateQualityFactory;
+
 class GildedRose {
     Item[] items;
 
@@ -9,60 +12,8 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            boolean isAgedBrie = item.name.equals("Aged Brie");
-            boolean isBackstagePasses =
-                    item.name.equals("Backstage passes to a TAFKAL80ETC concert");
-            boolean isSulfuras = item.name.equals("Sulfuras, Hand of Ragnaros");
-
-            if (isAgedBrie) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
-                }
-            } else if (isBackstagePasses) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-                }
-
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    item.quality = 0;
-                }
-            } else if (isSulfuras) {
-                // do nothing
-            } else {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
-
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    if (item.quality > 0) {
-                        item.quality = item.quality - 1;
-                    }
-                }
-            }
+            UpdateQualityStrategy strategy = UpdateQualityFactory.createStrategy(item);
+            strategy.update(item);
         }
     }
 }

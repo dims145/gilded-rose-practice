@@ -11,7 +11,7 @@ class GildedRoseTest {
         Item[] items = new Item[] {new Item("Aged Brie", 15, 15)};
 
         GildedRose app = new GildedRose(items);
-        assertEquals("Aged Brie", app.items[0].name);
+        assertEquals("Aged Brie, 15, 15", app.items[0].toString());
 
         for (int i = 0; i < 10; i++) {
             app.updateQuality();
