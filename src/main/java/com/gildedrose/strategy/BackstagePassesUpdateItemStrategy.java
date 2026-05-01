@@ -22,5 +22,9 @@ public class BackstagePassesUpdateItemStrategy implements UpdateItemStrategy {
     @Override
     public void updateEndDay(Item item) {
         item.sellIn = item.sellIn - 1;
+
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
     }
 }

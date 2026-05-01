@@ -91,4 +91,36 @@ class GildedRoseTest {
         assertEquals(10, app.items[0].sellIn);
         assertEquals(80, app.items[0].quality);
     }
+
+    @Test
+    void givenItemCommon_when50DaysPassed_shouldHaveCorrectQuality() {
+        Item[] items = new Item[] {new Item("Any Other Item", 15, 15)};
+
+        GildedRose app = new GildedRose(items);
+        assertEquals("Any Other Item", app.items[0].name);
+
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+        assertEquals(5, app.items[0].sellIn);
+        assertEquals(5, app.items[0].quality);
+
+        for (int i = 0; i < 3; i++) {
+            app.updateQuality();
+        }
+        assertEquals(2, app.items[0].sellIn);
+        assertEquals(2, app.items[0].quality);
+
+        for (int i = 0; i < 2; i++) {
+            app.updateQuality();
+        }
+        assertEquals(0, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+
+        for (int i = 0; i < 35; i++) {
+            app.updateQuality();
+        }
+        assertEquals(-35, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+    }
 }

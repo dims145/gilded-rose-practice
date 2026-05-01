@@ -4,6 +4,7 @@ import com.gildedrose.Item;
 import com.gildedrose.contract.UpdateItemStrategy;
 import com.gildedrose.strategy.AgedBrieUpdateItemStrategy;
 import com.gildedrose.strategy.BackstagePassesUpdateItemStrategy;
+import com.gildedrose.strategy.CommonUpdateItemStrategy;
 import com.gildedrose.strategy.SulfurasUpdateItemStrategy;
 
 public class UpdateItemFactory {
@@ -14,7 +15,8 @@ public class UpdateItemFactory {
             return new BackstagePassesUpdateItemStrategy();
         } else if (item.name.startsWith("Sulfuras")) {
             return new SulfurasUpdateItemStrategy();
+        } else {
+            return new CommonUpdateItemStrategy();
         }
-        throw new IllegalArgumentException("Strategy not implemented yet");
     }
 }
